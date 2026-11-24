@@ -13,7 +13,7 @@ import org.junit.Test
  *         and the delivery is blocked.
  * Step 2: implement the rule in ListingRepository.checkRules() and push -> green.
  */
-@Ignore("Exercise part 2: remove this line")
+
 class ListingPriceLimitTest {
 
     private val repository = InMemoryListingRepository()
