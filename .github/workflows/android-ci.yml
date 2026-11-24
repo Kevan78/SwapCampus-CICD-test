@@ -6,8 +6,8 @@
 name: CI
 
 on:
-  # TODO 1 — run this workflow on every push to the main branch
-  #          (keep workflow_dispatch: it adds a "Run workflow" button)
+    push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -19,11 +19,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
+  
       # TODO 2 — install Java with actions/setup-java@v5
       #          distribution: temurin, java-version: 25
       #          (25 comes from gradle/gradle-daemon-jvm.properties)
-
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+          
       - name: Set up Gradle (with cache = faster runs)
         uses: gradle/actions/setup-gradle@v6
 
@@ -31,8 +36,12 @@ jobs:
         run: chmod +x gradlew
 
       # TODO 3 — run the unit tests:  ./gradlew :shared:testDebugUnitTest
+      - name: Run unit tests
+        run: ./gradlew :shared:testDebugUnitTest
 
       # TODO 4 — build the debug APK:  ./gradlew :androidApp:assembleDebug
+      - name: Build debug APK
+        run: ./gradlew :androidApp:assembleDebug
 
       - name: Download the APK from the run page
         uses: actions/upload-artifact@v4
