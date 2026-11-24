@@ -133,5 +133,8 @@ class InMemoryListingRepository(
         if (price <= 0.0) {
             throw IllegalArgumentException("The price must be greater than 0")
         }
+        if (price > 5000.0) {
+            throw IllegalArgumentException("The price cannot exceed 5000 €")
+        }
     }
 }
